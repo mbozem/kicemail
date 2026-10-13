@@ -1,0 +1,2 @@
+# taeglich 04:10 persoenliche Empfangsadressen aus mail.log (90d) -> staff_map
+10 4 * * * root /usr/local/sbin/kicemail-staff-map.py >> /var/log/kicemail/staffmap.log 2>&1

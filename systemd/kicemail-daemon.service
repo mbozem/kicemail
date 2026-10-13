@@ -1,0 +1,15 @@
+[Unit]
+Description=kicemail Phase-0 Daemon (Spool -> KI-Klassifikation -> JSON-Log)
+After=network-online.target rspamd.service
+
+[Service]
+Type=simple
+User=_rspamd
+Group=_rspamd
+ExecStart=/usr/local/sbin/kicemail-daemon.py
+Restart=always
+RestartSec=5
+Nice=5
+
+[Install]
+WantedBy=multi-user.target

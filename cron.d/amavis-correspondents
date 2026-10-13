@@ -1,0 +1,4 @@
+# Auto-Whitelist der Geschäftskorrespondenten (Domains, an die wir erfolgreich nach extern senden)
+# Erzeugt /etc/amavis/whitelist-correspondents.txt; Reload löst amavis-whitelist.path aus.
+MAILTO=""
+0 4 * * * root /usr/local/sbin/amavis-correspondents.py >> /var/log/amavis-correspondents.log 2>&1

@@ -1,0 +1,145 @@
+{
+  "enabled": true,
+  "phase": "mark",
+  "spool_dir": "/var/lib/kicemail/spool",
+  "api_url": "http://127.0.0.1:4000/v1/chat/completions",
+  "model": "example-model",
+  "timeout_sec": 25,
+  "milter_timeout_sec": 60,
+  "trace": false,
+  "max_body_chars": 5000,
+  "poll_interval_sec": 2,
+  "subject_prefix": "KI Test Spam",
+  "log_file": "/var/log/kicemail/kiclass.log",
+  "archive_dir": "/var/lib/kicemail/archive",
+  "archive_keep_days": 90,
+  "whitelist_files": [
+    "/etc/amavis/whitelist-domains.txt",
+    "/etc/amavis/whitelist-correspondents.txt"
+  ],
+  "local_domains": [
+    "example.com",
+    "example.net"
+  ],
+  "classes": {
+    "geschaeftsantwort": {
+      "desc": "Antwort im laufenden Geschaeftsverkehr (personlicher Bezug, Hinweis auf fruehere Mails)",
+      "mark": "header",
+      "deliver": true
+    },
+    "geschaeftliche_anfrage": {
+      "desc": "konkrete sachliche Anfrage an uns (Angebot erbeten, Rueckfrage, Terminwuensche)",
+      "mark": "header",
+      "deliver": true
+    },
+    "angebot_gefragt": {
+      "desc": "Preis-/Lieferangebot auf eine vorherige Anfrage von uns",
+      "mark": "header",
+      "deliver": true
+    },
+    "angebot_ungefragt_persoenlich": {
+      "desc": "Verkaufsangebot/Werbung individuell an eine Person adressiert, ohne Anfrage von uns (auch wenn SPF/DKIM sauber)",
+      "mark": "subject",
+      "deliver": false,
+      "redirect": "KI-Spam",
+      "min_conf": 0.85
+    },
+    "angebot_ungefragt_breite": {
+      "desc": "Massenmailwerbung ohne Personenbezug, an Sammel-/Vertriebsadressen",
+      "mark": "subject",
+      "deliver": false,
+      "redirect": "KI-Spam",
+      "min_conf": 0.9
+    },
+    "newsletter": {
+      "desc": "Rundschreiben/Abo-Info mit Abmeldelink, kein direkter Verkaufsdruck",
+      "mark": "header",
+      "deliver": true
+    },
+    "transaktionsmail": {
+      "desc": "Lieferschein, Versand-/Zahlungsmitteilung, Bank-/Systemmitteilung ohne eigene Rechnungsstellung",
+      "mark": "header",
+      "deliver": true
+    },
+    "rechnung": {
+      "desc": "Rechnung/Beleg MIT Rechnungsempfaenger Beispiel Industrietechnik GmbH oder Beispiel Schutzsysteme GmbH (Rechnungsnummer, Betrag, Zahlungsziel, auch nur im Anhang); private Belege -> privat",
+      "mark": "header",
+      "deliver": true
+    },
+    "einladung_termin": {
+      "desc": "Termin-/Kalenderanfrage oder Einlassung zu einer Veranstaltung",
+      "mark": "header",
+      "deliver": true
+    },
+    "information_dienstleister": {
+      "desc": "Info von Steuerberater, Verband, Versorger, Amt ohne Verkaufsangebot",
+      "mark": "header",
+      "deliver": true
+    },
+    "privat": {
+      "desc": "persoenliche Nachricht ohne Geschaeftsbezug",
+      "mark": "header",
+      "deliver": true
+    },
+    "phishing_betrug": {
+      "desc": "Taeuschung: gefaelschte/ahnliche Domain, Login-Falle, Konto-/Zahlungsanderung, Druck, CEO-Fraud",
+      "mark": "subject",
+      "deliver": false,
+      "redirect": "KI-Verdaechtig",
+      "min_conf": 0.9
+    },
+    "malware_spam": {
+      "desc": "Schadsoftware-Verdacht: Unerwarteter Anhang (exe/zip/iso), Makro-/Link-Falle",
+      "mark": "subject",
+      "deliver": false,
+      "redirect": "KI-Spam",
+      "min_conf": 0.9
+    },
+    "unklar": {
+      "desc": "kein klares Muster, mehrdeutig",
+      "mark": "header",
+      "deliver": true
+    },
+    "systemprotokoll": {
+      "desc": "System-/Cron-Protokoll (Logausgabe, Job-Status) ohne Geschaeftsinhalt, von Host-Konten wie root@/cron@/nextcloud@/zabbix@; Feld 'fehler' mitbeurteilen",
+      "mark": "header",
+      "deliver": true,
+      "min_conf": 0.9
+    }
+  },
+  "default": {
+    "mark": "header",
+    "deliver": true
+  },
+  "attach_enabled": true,
+  "attach_body_threshold": 600,
+  "attach_max_files": 2,
+  "attach_max_bytes": 8000000,
+  "attach_timeout_sec": 10.0,
+  "attach_docker_image": "kicemail-poppler",
+  "suggest_cc": true,
+  "staff_map_file": "/var/lib/kicemail/staff_map.json",
+  "mid_index_file": "/var/lib/kicemail/mid_index.jsonl",
+  "misaddress_flag": true,
+  "shared_rcpts": [
+    "info@example.com",
+    "info@example.net",
+    "postmaster@example.com",
+    "postmaster@example.net",
+    "vertrieb@example.com",
+    "buchhaltung@example.com",
+    "buchhaltung@example.net",
+    "einkauf@example.com",
+    "einkauf@example.net",
+    "bewerbung@example.com",
+    "bewerbung@example.net",
+    "fertigung@example.net"
+  ],
+  "auto_min_conf": 0.9,
+  "auto_exclude": [
+    "unklar"
+  ],
+  "classify_internal": true,
+  "chunk_max_rounds": 8,
+  "chunk_time_budget_sec": 42
+}

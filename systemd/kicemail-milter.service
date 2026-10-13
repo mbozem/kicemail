@@ -1,0 +1,18 @@
+[Unit]
+Description=kicemail Phase-2 Milter (KI-Header, fail-open, keine Aktionen)
+After=network.target
+
+[Service]
+Environment=KI_MILTER_PORT=11335
+ExecStart=/usr/bin/python3 /usr/local/sbin/kicemail-milter.py
+User=kicemail
+Group=kicemail
+Restart=always
+RestartSec=2
+MemoryMax=300M
+NoNewPrivileges=yes
+ProtectSystem=full
+ReadWritePaths=/var/log/kicemail /var/lib/kicemail
+
+[Install]
+WantedBy=multi-user.target
