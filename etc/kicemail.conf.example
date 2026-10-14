@@ -105,6 +105,11 @@
       "mark": "header",
       "deliver": true,
       "min_conf": 0.9
+    },
+    "bewerbung": {
+      "desc": "Bewerbung: Initiativ-/Stellenbewerbung, Lebenslauf, Zeugnisse (auch an bewerbung@)",
+      "mark": "header",
+      "deliver": true
     }
   },
   "default": {
