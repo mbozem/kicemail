@@ -4,8 +4,8 @@
   "spool_dir": "/var/lib/kicemail/spool",
   "api_url": "http://127.0.0.1:4000/v1/chat/completions",
   "model": "example-model",
-  "timeout_sec": 25,
-  "milter_timeout_sec": 60,
+  "timeout_sec": 180,
+  "milter_timeout_sec": 190,
   "trace": false,
   "max_body_chars": 5000,
   "poll_interval_sec": 2,
@@ -141,5 +141,5 @@
   ],
   "classify_internal": true,
   "chunk_max_rounds": 8,
-  "chunk_time_budget_sec": 42
+  "chunk_time_budget_sec": 180
 }

@@ -6,7 +6,7 @@ Lauscht auf 127.0.0.1:11335 (Port via $KI_MILTER_PORT; 11333-11334 belegt
 rspamd, bis es raus fliegt). Postfix haengt uns am
 Re-Injektions-Hop 10025 nach Amavis/SpamAssassin HINTER rspamd:
   -o smtpd_milters = inet:localhost:11332, inet:localhost:11335
-  -o milter_command_timeout=75s   (KI-Darfuernis, see kicemail.conf)
+  -o milter_command_timeout=240s   (KI-Darfuernis, see kicemail.conf)
 
 PROTOKOLL: Postfix milter_protocol=6 (ground truth via tcpdump 10.10. 21:45):
   Frame = uint32 BE Laenge | 1 Byte Kommando (GROSS) | Nutzdaten — KEIN sid.
@@ -862,7 +862,7 @@ def classify(c, headers, body, attach_text="", images=None, origin="extern"):
     while True:
         if rounds:
             budget = c.chunk_time_budget_sec - (time.time() - t_all)
-            tout = max(2.0, min(20.0, budget if budget > 0 else 2.0))
+            tout = max(2.0, min(60.0, budget if budget > 0 else 2.0))
         else:
             tout = max(2.0, c.milter_timeout_sec - 2.0)
         payload = {
