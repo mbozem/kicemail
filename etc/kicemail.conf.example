@@ -117,7 +117,7 @@
     "deliver": true
   },
   "attach_enabled": true,
-  "attach_body_threshold": 600,
+  "attach_body_threshold": 100000000,
   "attach_max_files": 2,
   "attach_max_bytes": 8000000,
   "attach_timeout_sec": 10.0,
