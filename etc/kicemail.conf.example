@@ -12,7 +12,7 @@
   "subject_prefix": "KI Test Spam",
   "log_file": "/var/log/kicemail/kiclass.log",
   "archive_dir": "/var/lib/kicemail/archive",
-  "archive_keep_days": 90,
+  "archive_keep_days": 30,
   "whitelist_files": [
     "/etc/amavis/whitelist-domains.txt",
     "/etc/amavis/whitelist-correspondents.txt"
